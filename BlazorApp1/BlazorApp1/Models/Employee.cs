@@ -29,9 +29,9 @@ public partial class Employee
     public string EmpEmail { get; set; }
 
     [Required(ErrorMessage = "Age is required")]
-    [Range(18, 60, ErrorMessage = "Age must be between 18 and 99")]
     public int? EmpAge { get; set; }
 
     public string EmpSkills { get; set; }
 
+    public virtual ICollection<Skill> Skills { get; set; } = new List<Skill>();
 }

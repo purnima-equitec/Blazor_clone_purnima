@@ -64,5 +64,10 @@ namespace BlazorApp1.Data
             await dbContext.Procedures.RestoreEmployeeAsync(emp.Empid);
             await dbContext.SaveChangesAsync();
         }
+
+        public async Task<List<Skill>> GetSkillsAsync()
+        {
+            return await dbContext.Skills.ToListAsync();
+        }
     }
 }
