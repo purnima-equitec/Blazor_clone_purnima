@@ -1,6 +1,7 @@
 ﻿using BlazorApp1.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace BlazorApp1.Data
 {
@@ -79,9 +80,15 @@ namespace BlazorApp1.Data
             return await dbContext.Procedures.AddEmployeeSkillAsync(employeeId, skillId);
         }
 
-        public async Task<Employee> GetEmployeeByNameAsync(string employeeName)
+        public async Task<Employee> GetEmployeeByEmailAsync(string employeeEmail)
         {
-            return await dbContext.Employees.FirstOrDefaultAsync(e => e.Empname== employeeName);
+            return await dbContext.Employees.FirstOrDefaultAsync(e => e.EmpEmail== employeeEmail);
         }
+
+        public async Task<int> UpdateEmpskills(int employeeId, int skillIds, string action)
+        {
+               return await dbContext.Procedures.UpdateEmployeeSkillAsync(employeeId, skillIds, action);
+        }
+
     }
 }

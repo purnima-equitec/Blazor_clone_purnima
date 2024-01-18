@@ -5,8 +5,8 @@ namespace BlazorApp1.Pages
 {
     public partial class MyPage
     {
-        private List<Employee> Employees;
-        private List<GetEmployeeDetailsResult> skills;
+        private List<Employee>? Employees;
+        private List<GetEmployeeDetailsResult>? skills;
         Dictionary<int, string> employeeDetails=new Dictionary<int, string>();
         protected override async Task OnInitializedAsync()
         {

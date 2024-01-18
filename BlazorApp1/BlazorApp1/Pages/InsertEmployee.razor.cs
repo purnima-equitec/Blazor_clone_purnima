@@ -15,12 +15,11 @@ namespace BlazorApp1.Pages
         {
             skills = await MyService.GetSkillsAsync();
         }
+
         private async Task AddEmployee()
         {
-            employee.Skills = skills.Where(skill => selectedSkills.Contains(skill.SkillId)).ToList();
-            employee.EmpSkills = string.Join(",", employee.Skills.Select(skill => skill.SkillId));
             await MyService.AddEmployeeAsync(employee);
-            Employee addedEmployee = await MyService.GetEmployeeByNameAsync(employee.Empname);
+            Employee addedEmployee = await MyService.GetEmployeeByEmailAsync(employee.EmpEmail);
             if (addedEmployee != null)
             {
                 int employeeId = addedEmployee.Empid;
@@ -56,6 +55,5 @@ namespace BlazorApp1.Pages
             }
             StateHasChanged();
         }
-
     }
 }

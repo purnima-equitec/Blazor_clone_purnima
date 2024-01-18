@@ -58,6 +58,14 @@
       {
          "Name": "[dbo].[RestoreEmployee]",
          "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[UpdateEmployeeSkill]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[UpdateEmployeeSkills]",
+         "ObjectType": 1
       }
    ],
    "UiHint": "desktop-sith99n.DapperDB.dbo",
