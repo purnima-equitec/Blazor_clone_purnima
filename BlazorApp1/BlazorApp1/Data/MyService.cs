@@ -69,5 +69,19 @@ namespace BlazorApp1.Data
         {
             return await dbContext.Skills.ToListAsync();
         }
+        public async Task<List<GetEmployeeDetailsResult>> GetSkillswithemployee()
+        {
+            return await dbContext.Procedures.GetEmployeeDetailsAsync();
+        }
+
+        public async Task<int> AddEmpskills(int employeeId, int skillId)
+        {
+            return await dbContext.Procedures.AddEmployeeSkillAsync(employeeId, skillId);
+        }
+
+        public async Task<Employee> GetEmployeeByNameAsync(string employeeName)
+        {
+            return await dbContext.Employees.FirstOrDefaultAsync(e => e.Empname== employeeName);
+        }
     }
 }

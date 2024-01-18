@@ -2,7 +2,6 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace BlazorApp1.Models;
 
@@ -10,25 +9,18 @@ public partial class Employee
 {
     public int Empid { get; set; }
 
-    [Required(ErrorMessage = "Employee Name is required")]
     public string Empname { get; set; }
 
-    [Required(ErrorMessage = "Designation is required")]
     public string EmpDesignation { get; set; }
 
-    [Required(ErrorMessage = "Salary is required")]
     public int? EmpSalary { get; set; }
 
     public bool? IsDeleted { get; set; }
 
-    [Required(ErrorMessage = "Gender is required")]
     public string EmpGender { get; set; }
 
-    [Required(ErrorMessage = "Email is required")]
-    [EmailAddress(ErrorMessage = "Invalid Email Address")]
     public string EmpEmail { get; set; }
 
-    [Required(ErrorMessage = "Age is required")]
     public int? EmpAge { get; set; }
 
     public string EmpSkills { get; set; }

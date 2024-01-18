@@ -20,7 +20,28 @@ namespace BlazorApp1.Pages
             employee.Skills = skills.Where(skill => selectedSkills.Contains(skill.SkillId)).ToList();
             employee.EmpSkills = string.Join(",", employee.Skills.Select(skill => skill.SkillId));
             await MyService.AddEmployeeAsync(employee);
-            NavigationManager.NavigateTo("/mypage");
+            Employee addedEmployee = await MyService.GetEmployeeByNameAsync(employee.Empname);
+            if (addedEmployee != null)
+            {
+                int employeeId = addedEmployee.Empid;
+                foreach (int skillId in selectedSkills)
+                {
+                    try
+                    {
+                        await MyService.AddEmpskills(employeeId, skillId);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error adding skill {skillId} for employee {employeeId}: {ex.Message}");
+                    }
+                }
+
+                NavigationManager.NavigateTo("/mypage");
+            }
+            else
+            {
+                Console.WriteLine("Error: Employee not found after adding.");
+            }
         }
 
         private void ToggleSkill(int skillId)
@@ -33,6 +54,8 @@ namespace BlazorApp1.Pages
             {
                 selectedSkills.Add(skillId);
             }
+            StateHasChanged();
         }
+
     }
 }

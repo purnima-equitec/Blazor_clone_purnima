@@ -16,6 +16,7 @@ namespace BlazorApp1.Pages
         private async  Task EditEmployeeData()
         {
             await MyService.EditEmployeeAsync(employee);
+
             NavigationManager.NavigateTo("/mypage");
         }
     }

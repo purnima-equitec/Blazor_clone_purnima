@@ -28,6 +28,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[AddEmployeeSkill]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[EmployeeAddOrEdit]",
          "ObjectType": 1
       },
@@ -45,6 +49,10 @@
       },
       {
          "Name": "[dbo].[GetAllDeletedEmployees]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[GetEmployeeDetails]",
          "ObjectType": 1
       },
       {

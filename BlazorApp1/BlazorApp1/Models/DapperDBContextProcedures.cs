@@ -37,6 +37,7 @@ namespace BlazorApp1.Models
             modelBuilder.Entity<EmployeeViewAllResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<EmployeeViewByIDResult>().HasNoKey().ToView(null);
             modelBuilder.Entity<GetAllDeletedEmployeesResult>().HasNoKey().ToView(null);
+            modelBuilder.Entity<GetEmployeeDetailsResult>().HasNoKey().ToView(null);
         }
     }
 
@@ -47,6 +48,38 @@ namespace BlazorApp1.Models
         public DapperDBContextProcedures(DapperDBContext context)
         {
             _context = context;
+        }
+
+        public virtual async Task<int> AddEmployeeSkillAsync(int? EmployeeId, int? SkillId, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "EmployeeId",
+                    Value = EmployeeId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "SkillId",
+                    Value = SkillId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.Database.ExecuteSqlRawAsync("EXEC @returnValue = [dbo].[AddEmployeeSkill] @EmployeeId, @SkillId", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
         }
 
         public virtual async Task<int> EmployeeAddOrEditAsync(int? EMPID, string EMPNAME, string EMP_DESIGNATION, int? EMP_SALARY, string EMP_GENDER, string EMP_EMAIL, int? EMP_AGE, string EMP_SKILLS, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
@@ -208,6 +241,26 @@ namespace BlazorApp1.Models
                 parameterreturnValue,
             };
             var _ = await _context.SqlQueryAsync<GetAllDeletedEmployeesResult>("EXEC @returnValue = [dbo].[GetAllDeletedEmployees]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<GetEmployeeDetailsResult>> GetEmployeeDetailsAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<GetEmployeeDetailsResult>("EXEC @returnValue = [dbo].[GetEmployeeDetails]", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 
